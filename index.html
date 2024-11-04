@@ -37,6 +37,7 @@
         <input type="text" name="title" placeholder="Title" required />
         <input type="text" name="message" placeholder="Message" required />
         <input type="text" name="icon" placeholder="Icon URL" />
+        <input type="text" name="time" placeholder="Time" />
         <input type="number" name="delay" placeholder="Delay (ms)" />
         <select name="theme">
             <option value="dark">Dark</option>
@@ -58,9 +59,10 @@
                 form.title.value,
                 form.message.value,
                 form.icon.value,
+                form.time.value,
                 parseInt(form.delay.value) || 0,
                 form.theme.value,
-                parseInt(form.duration.value) || 5000,
+                parseInt(form.duration.value),
                 form.imageShape.value
             );
         });

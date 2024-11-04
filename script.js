@@ -5,6 +5,7 @@
  * @param {string} [config.title] - Optional title for the notification
  * @param {string} [config.icon] - Optional icon URL
  * @param {string} [config.imageShape='circle'] - Shape of the icon ('circle' or 'square')
+ * @param {string} [config.time=''] - Optional time string to display
  * @param {number} [config.delay=0] - Delay before showing
  * @param {number} [config.duration=5000] - How long to display before auto-dismiss
  * @param {string} [config.theme='dark'] - Theme ('dark' or 'light')
@@ -38,6 +39,7 @@ function createPopup(config) {
         title: '',
         icon: '',
         imageShape: 'circle',
+        time: '',
         delay: 0,
         duration: 5000,
         theme: 'dark'
@@ -130,6 +132,17 @@ function createPopup(config) {
         titleHtml = `<div style="font-weight: 600; font-size: 17px; margin-bottom: 4px; color: ${theme.titleColor};">${settings.title}</div>`;
     }
 
+    let timeHtml = '';
+    if (settings.time) {
+        timeHtml = `<div style="
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 12px;
+            color: ${theme.messageColor};
+        ">${settings.time}</div>`;
+    }
+
     notification.innerHTML = `
         ${settings.imageShape === 'square' ? iconHtml : ''}
         <div style="
@@ -161,6 +174,7 @@ function createPopup(config) {
                 flex-shrink: 0;
             ">×</button>
         </div>
+        ${timeHtml}
     `;
 
     // Add hover effect for close button
@@ -266,16 +280,18 @@ function createPopup(config) {
  * @param {string} title - The notification title
  * @param {string} message - The message to display
  * @param {string} [icon=''] - Optional icon URL
+ * @param {string} [time=''] - Optional time string
  * @param {number} [delay=0] - Delay in milliseconds before showing
  * @param {string} [theme='dark'] - Theme ('dark' or 'light')
  * @param {number} [duration=5000] - Duration to show notification (0 for no auto-dismiss)
  * @param {string} [imageShape='circle'] - Shape of the icon ('circle' or 'square')
  */
-function showPopup(title, message, icon = '', delay = 0, theme = 'dark', duration = 5000, imageShape = 'circle') {
+function showPopup(title, message, icon = '', time = '', delay = 0, theme = 'dark', duration = 5000, imageShape = 'circle') {
     createPopup({
         title: title,
         message: message,
         icon: icon,
+        time: time,
         delay: delay,
         theme: theme,
         duration: duration,
